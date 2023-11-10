@@ -1,9 +1,4 @@
-#!/usr/bin/env python
 # coding: utf-8
-
-# In[2]:
-
-
 #inicialmente aplicamos as bibliotecas que iremos utilizar.
 #Blibiotecas de Plotagem de dados e gráficos.
 import matplotlib.pyplot as plt
@@ -15,10 +10,6 @@ import subprocess
 import sys
 import os
 from subprocess import Popen
-
-
-# In[43]:
-
 
 def Coordenadas (arquivo):
     l, cont = 0, True
@@ -100,10 +91,6 @@ def Energias(Nome):
         informacao.write('\n')
     return
 
-
-# In[ ]:
-
-
 #Nome dos arquivos
 print("insira o nome do arquivo do receptor")
 receptor = str(input())
@@ -122,9 +109,6 @@ print("tamanho z:")
 cz = int(input())
 print("insira o exhaustiveness")
 exh = int(input())
-
-
-# In[1]:
 
 
 p = 0
@@ -158,28 +142,3 @@ while p <= passos:
         exit()
     p += 1
 exit()
-
-
-# In[ ]:
-
-
-
-
-
-# In[37]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
