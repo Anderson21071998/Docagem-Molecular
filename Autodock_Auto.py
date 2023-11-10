@@ -31,6 +31,10 @@ def Coordenadas (arquivo):
                     x.append(float(linha[5]))
                     y.append(float(linha[6]))
                     z.append(float(linha[7]))
+                if linha[0] == "HETATM":
+                    x.append(float(linha[4]))
+                    y.append(float(linha[5]))
+                    z.append(float(linha[6]))
                 l = l + 1
         if arquivo[l] == "MODEL 2\n":
             cont = False
@@ -39,6 +43,8 @@ def Coordenadas (arquivo):
     x_novo = sum(x)/len(x)
     y_novo = sum(y)/len(y)
     z_novo = sum(z)/len(z)
+    with open('Movimentação.txt', 'a') as grafico:
+        grafico.write(f'{x_novo} {y_novo} {z_novo}\n')
     return [x_novo, y_novo, z_novo]
 
 def Conf(receptor, ligand, out, x, y, z, cx, cy, cz, exh):
@@ -128,6 +134,7 @@ while p <= passos:
     out = "res_out" + f"{p}"
     Informação(receptor, ligand, out, centro_caixa[0], centro_caixa[1], centro_caixa[2], cx, cy, cz, exh)
     Conf(receptor, ligand, out , centro_caixa[0], centro_caixa[1], centro_caixa[2], cx, cy, cz, exh)
+    
     try:
         c3 = os.system('vina --config conf.txt --log log.txt')
     except Exception as E:
@@ -135,6 +142,14 @@ while p <= passos:
         ERRO(E)
         exit()
     Energias('log')
+    
+    try:
+        c3 = os.system(f'vina_split --input {out}.pdbqt')
+    except Exception as E:
+        print('Não foi possivel rodar o docking, por favor verifique o seguinte comando de erro')
+        ERRO(E)
+        exit()
+    
     try:
         c3 = os.system('clear')
     except Exception as E:
